@@ -5,6 +5,8 @@
     "dados": "python scripts/extrair_dados.py && python scripts/extrair_municipios.py",
     "dev": "observable preview",
     "build": "observable build",
+    "preview:assistente": "node --env-file=.env.local dev-assistente.mjs",
+    "test:assistente": "node --test tests/assistente.test.js",
     "clean": "rimraf src/.observablehq/cache",
     "docs": "vitepress dev auditoria",
     "docs:build": "vitepress build auditoria"
@@ -16,7 +18,7 @@
     "topojson-client": "3.1.0"
   },
   "engines": {
-    "node": ">=18"
+    "node": ">=22"
   },
   "devDependencies": {
     "vitepress": "1.6.3"

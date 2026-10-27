@@ -1,0 +1,33 @@
+{
+  "repositorio": "https://github.com/dromerolovo/dashboard-regenera",
+  "revisao_base": "fe4d1783be0097276d2331460a2164d8a99f66c7",
+  "data_revisao": "2026-10-27",
+  "verificacoes": {
+    "build_observable": "aprovado",
+    "testes_automatizados_api": {
+      "passaram": 15,
+      "falharam": 0,
+      "chamadas_gemini": "simuladas"
+    },
+    "interface": "verificada em DOM simulado; sem inspeção visual de navegador",
+    "servidor_http_local": "aprovado",
+    "jsons_de_origem": "sem alterações",
+    "gemini_real": "não consultado; depende da chave do projeto",
+    "publicacao_remota": "não realizada"
+  },
+  "sha256": {
+    ".env.example": "1c3a677802014339cc31159a035d02a9de07f614b7bd308833c79b973e48431f",
+    ".gitignore": "49c3ba2917942d9eebc0c43af072450c6fbdc551c4ad70a2bbabf6117132007c",
+    "LEIA-ME_ASSISTENTE.md": "eaadbe02930c55fafea9d64819192d21ad527f6e7365102bacc78439707e2f46",
+    "api/assistente.js": "a119c8bd449cb968632f8e1c0414c02835cde4646802e8eeb3355554052d2dd5",
+    "server/assistente-core.js": "1b916dcd5a9d8fff797efcbe896286fadc6fdd3234201fe668ad1a07ae449f9f",
+    "src/components/assistente.js": "ae69423860b93de08530c486b03a34f707931e734466d244ed2e34f73caf8ddf",
+    "src/index.md": "b112c095972f90940733dcdebb943cacf622b3e9731b32c2fa34ed715fc9242a",
+    "dev-assistente.mjs": "c834a5404b868ea1de118cd0a48eaf1889e40ee36d9cf593d4f52b17b896bc9f",
+    "tests/assistente.test.js": "f0f8a76154b7a5cecbfe4dc9eec6f0bf9ecebd60872114a220719cf2986a33fa",
+    "vercel.json": "df774f0e2e15473d1ecde6c5bdbce7f7b4c8554f3b6644592ead325bdd4928be",
+    "package.json": "59619f0a080d915619f0035e50350c8f37ea0ddafc3da7c7bb04ecde5dd749e4",
+    "package-lock.json": "5575b68cbe69d00240ac68ff766d177a026e4e604565d29f9bc5529925af418a",
+    "integracao_assistente.patch": "cdb27b34a1c054a90d9001a2274140b33cf2eb0f53682d6753dc69ad6b2498ad"
+  }
+}

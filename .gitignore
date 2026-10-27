@@ -7,3 +7,6 @@ auditoria
 scripts
 Fontes*
 resources
+.env
+.env.*
+!.env.example
