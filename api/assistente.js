@@ -1,0 +1,82 @@
+import {readFile} from "node:fs/promises";
+import {join} from "node:path";
+import {createCatalog, modelRequest, validateSelection, NO_DATA} from "../server/assistente-core.js";
+
+let catalogPromise;
+async function loadCatalog() {
+  catalogPromise ??= Promise.all(["painel.json", "municipios.json", "rs.json"].map(async name => JSON.parse(await readFile(join(process.cwd(), "src", "data", name), "utf8")))).then(data => createCatalog(...data)).catch(error => {catalogPromise = undefined; throw error;});
+  return catalogPromise;
+}
+
+class RequestError extends Error {
+  constructor(status, message) {super(message); this.status = status;}
+}
+
+async function readBody(req) {
+  if (!String(req.headers["content-type"] || "").toLowerCase().startsWith("application/json")) throw new RequestError(415, "Envie a pergunta no formato JSON.");
+  let body = req.body;
+  if (body === undefined) {
+    const chunks = []; let size = 0;
+    for await (const chunk of req) {
+      size += Buffer.byteLength(chunk);
+      if (size > 16000) throw new RequestError(413, "A mensagem é muito longa.");
+      chunks.push(Buffer.from(chunk));
+    }
+    body = Buffer.concat(chunks).toString("utf8");
+  }
+  if (Buffer.isBuffer(body)) body = body.toString("utf8");
+  if (typeof body === "string") {
+    if (Buffer.byteLength(body) > 16000) throw new RequestError(413, "A mensagem é muito longa.");
+    try {body = JSON.parse(body);} catch {throw new RequestError(400, "A mensagem não é válida.");}
+  }
+  if (!body || typeof body !== "object" || Array.isArray(body) || Object.keys(body).some(k => !["pergunta", "historico", "versao"].includes(k))) throw new RequestError(400, "Formato de mensagem não permitido.");
+  if (Buffer.byteLength(JSON.stringify(body)) > 16000) throw new RequestError(413, "A mensagem é muito longa.");
+  const question = typeof body.pergunta === "string" ? body.pergunta.trim() : "";
+  if (!question || question.length > 1200) throw new RequestError(400, "Escreva uma pergunta de até 1.200 caracteres.");
+  const history = body.historico ?? [];
+  if (!Array.isArray(history) || history.length > 6 || history.some(s => typeof s !== "string" || s.length > 1200)) throw new RequestError(400, "Histórico inválido.");
+  if (typeof body.versao !== "string" || !/^[a-f0-9]{64}$/.test(body.versao)) throw new RequestError(400, "Atualize a página antes de consultar o assistente.");
+  return {question, history, version: body.versao};
+}
+
+export function createHandler({getCatalog = loadCatalog, fetchImpl = globalThis.fetch, env = process.env} = {}) {
+  return async function handler(req, res) {
+    res.setHeader("Cache-Control", "no-store");
+    res.setHeader("X-Content-Type-Options", "nosniff");
+    const send = (status, data) => {res.statusCode = status; res.setHeader("Content-Type", "application/json; charset=utf-8"); res.end(JSON.stringify(data));};
+    if (req.method !== "POST") {res.setHeader("Allow", "POST"); return send(405, {erro: "Método não permitido."});}
+    try {
+      const origin = req.headers.origin;
+      const host = String(req.headers["x-forwarded-host"] || req.headers.host || "").split(",")[0].trim();
+      if (origin && new URL(origin).host !== host) return send(403, {erro: "Origem não permitida."});
+      const {question, history, version} = await readBody(req);
+      const catalog = await getCatalog();
+      if (version !== catalog.versao) return send(409, {erro: "Os dados foram atualizados. Recarregue a página para continuar."});
+      const key = env.GEMINI_API_KEY?.trim();
+      if (!key) return send(503, {erro: "O assistente está temporariamente indisponível."});
+      const model = env.GEMINI_MODEL?.trim() || "gemini-3.5-flash-lite";
+      if (!/^[a-z0-9][a-z0-9._-]{0,99}$/i.test(model)) throw new Error("Invalid model configuration");
+      const response = await fetchImpl(`https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(model)}:generateContent`, {
+        method: "POST", headers: {"Content-Type": "application/json", "x-goog-api-key": key},
+        body: JSON.stringify(modelRequest(question, history, catalog)), signal: AbortSignal.timeout(25000)
+      });
+      if (!response.ok) {
+        if (response.status === 429) return send(429, {erro: "O limite de consultas foi atingido. Tente novamente em alguns instantes."});
+        return send(502, {erro: "Não foi possível consultar o assistente agora. Tente novamente."});
+      }
+      const payload = await response.json();
+      const candidate = payload.candidates?.[0];
+      if (candidate?.finishReason !== "STOP") throw new Error("Incomplete model response");
+      const text = candidate.content?.parts?.filter(p => typeof p.text === "string" && !p.thought).map(p => p.text).join("") || "";
+      const facts = validateSelection(JSON.parse(text), catalog);
+      return send(200, {resposta: facts.length ? "Estas são as informações registradas no painel:" : NO_DATA, fatos: facts, ciclo: catalog.ciclo, versao: catalog.versao});
+    } catch (error) {
+      if (error instanceof RequestError) return send(error.status, {erro: error.message});
+      if (error.name === "TimeoutError" || error.name === "AbortError") return send(504, {erro: "A consulta demorou mais que o esperado. Tente novamente."});
+      console.error("Assistente RegeneraRS:", error.name);
+      return send(502, {erro: "Não foi possível obter uma resposta validada. Tente reformular a pergunta."});
+    }
+  };
+}
+
+export default createHandler();
