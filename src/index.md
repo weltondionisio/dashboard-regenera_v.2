@@ -10,6 +10,8 @@ import {valorizacoes} from "./components/valorizacoes.js";
 import {pessoas} from "./components/pessoas.js";
 import {eixos} from "./components/eixos.js";
 import {espaco} from "./components/espaco.js";
+import {assistenteRegenera} from "./components/assistente.js";
+
 const dados = FileAttachment("data/painel.json").json();
 const municipios = FileAttachment("data/municipios.json").json();
 const rs = FileAttachment("data/rs.json").json();
@@ -41,4 +43,10 @@ display(eixos(dados));
 
 ```js
 display(espaco(dados, municipios, rs));
+```
+
+```js
+const janelaAssistente = assistenteRegenera(dados, municipios, rs);
+display(janelaAssistente);
+invalidation.then(() => janelaAssistente.destroy());
 ```
