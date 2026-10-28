@@ -149,16 +149,39 @@ function banner(iniciativa, eixo) {
   return card;
 }
 
+function completarBanners(dados) {
+  const banners = [...dados.banners];
+  // A Figura 8 reúne os resultados de Habitação. O arquivo anterior continha
+  // apenas os 18 banners da seção 8, que não tinham um grupo desse eixo.
+  if (dados.eixos.some(e => e.id === "hab") && !banners.some(b => b.eixo === "hab")) {
+    banners.push({
+      id: "habitacao-entregas",
+      eixo: "hab",
+      titulo: "Entregas e formação em Habitação",
+      recorte: "Eixo Habitação · Figura 8 do relatório",
+      indicadores: [
+        {texto: "Mais de 240", rotulo: "unidades habitacionais em construção ou concluídas", valor: 240},
+        {texto: "118", rotulo: "casas entregues", valor: 118},
+        {texto: "200", rotulo: "casas com reformas", valor: 200},
+        {texto: "615", rotulo: "beneficiários capacitados na construção civil", valor: 615}
+      ],
+      nota: "Novas unidades habitacionais em 8 municípios."
+    });
+  }
+  return {...dados, banners};
+}
+
 function fontes() {
   const detalhes = no("details", "pg-sources");
   detalhes.append(no("summary", null, "Fonte e recortes dos indicadores"),
-    no("p", null, "Relatório técnico RegeneraRS: figuras 1 a 7 e indicadores complementares por iniciativa da seção 8. Os valores preservam os números, as unidades e expressões como ‘mais de’ apresentados nessa fonte."),
-    no("p", null, "Os banners mantêm o recorte de cada iniciativa, inclusive as referências a relatórios anuais e à transparência de 2025. Seus valores são apresentados por iniciativa, sem somá-los aos totais gerais."),
+    no("p", null, "Relatório técnico RegeneraRS: figuras 1 a 8 e indicadores complementares por iniciativa da seção 8. O banner de Habitação apresenta as entregas e a formação da Figura 8. Os valores preservam os números, as unidades e expressões como ‘mais de’ apresentados nessa fonte."),
+    no("p", null, "Os banners mantêm o recorte de cada eixo ou iniciativa, inclusive as referências a relatórios anuais e à transparência de 2025. Seus valores são apresentados em seus respectivos recortes, sem somá-los aos totais gerais."),
     no("p", null, "Os recursos deliberados por eixo somam R$ 40,55 milhões nos rótulos divulgados. O total geral informado é R$ 40,5 milhões; as duas apresentações seguem o relatório."));
   return detalhes;
 }
 
-export function panoramaGeral(painel, d) {
+export function panoramaGeral(painel, dados) {
+  const d = completarBanners(dados);
   const cores = new Map(painel.eixos.map(e => [e.id, e.cor]));
   const eixos = d.eixos.map(e => ({...e, cor: cores.get(e.id) || COR.lima}));
   const porId = new Map(eixos.map(e => [e.id, e]));
@@ -203,7 +226,7 @@ export function panoramaGeral(painel, d) {
   const banners = no("div", "pg-banner-column");
   const corpo = no("div", "pg-main", graficos, banners);
   secao.append(cabecalhoSecao("Resultados divulgados", "Panorama geral"),
-    no("p", "pg-intro", "Explore os resultados por eixo e os indicadores de cada iniciativa."), filtros, contexto, topo, corpo, fontes());
+    no("p", "pg-intro", "Explore os resultados e os indicadores por eixo e iniciativa."), filtros, contexto, topo, corpo, fontes());
 
   function selecionar(id) {
     if (id !== "tudo" && !porId.has(id)) return;
@@ -220,21 +243,25 @@ export function panoramaGeral(painel, d) {
     });
     const iniciativas = d.banners.filter(b => id === "tudo" || b.eixo === id);
     const quantidadeIndicadores = iniciativas.reduce((s, b) => s + b.indicadores.length, 0);
-    contexto.textContent = `${id === "tudo" ? "Todos os eixos" : porId.get(id).nome}${iniciativas.length ? ` · ${iniciativas.length} iniciativas · ${quantidadeIndicadores} indicadores complementares` : " · resultados nos gráficos por eixo"}`;
+    contexto.textContent = `${id === "tudo" ? "Todos os eixos" : porId.get(id).nome}${iniciativas.length ? ` · ${iniciativas.length} ${iniciativas.length === 1 ? "banner" : "banners"} · ${quantidadeIndicadores} indicadores` : " · resultados nos gráficos por eixo"}`;
     topo.replaceChildren(...(id === "tudo" ? [rosca(d), estagios(d), resiliencia(d, porId.get("su").cor)] : id === "edu" ? [educacao(d, porId.get("edu").cor)] : []));
     topo.hidden = !topo.childElementCount;
     topo.classList.toggle("pg-top-education", id === "edu");
-    const grupos = d.ordemBanners.filter(eixo => id === "tudo" || eixo === id).map(eixo => {
-      const e = porId.get(eixo);
+    // A ordem anterior era também uma lista de inclusão. Percorrer os eixos
+    // cadastrados garante a exibição dos grupos que não constam nessa lista.
+    const grupos = eixos.filter(e => id === "tudo" || e.id === id).map(e => {
+      const eixo = e.id;
       const itens = iniciativas.filter(b => b.eixo === eixo);
       if (!itens.length) return null;
       const grupo = no("section", "pg-banner-group");
       grupo.dataset.grupo = eixo;
       grupo.style.setProperty("--axis-color", e.cor);
-      grupo.append(no("h3", "pg-group-title", no("i", "pg-axis-dot"), e.nome), no("div", "pg-banners", ...itens.map(b => banner(b, e))));
+      const grade = no("div", "pg-banners", ...itens.map(b => banner(b, e)));
+      if (itens.length === 1) grade.style.gridTemplateColumns = "minmax(0,1fr)";
+      grupo.append(no("h3", "pg-group-title", no("i", "pg-axis-dot"), `${e.nome} · ${itens.length} ${itens.length === 1 ? "banner" : "banners"}`), grade);
       return grupo;
     }).filter(Boolean);
-    banners.replaceChildren(no("div", "pg-banners-heading", no("p", "pg-kicker", "Por iniciativa"), no("h3", null, "Indicadores complementares")), ...grupos);
+    banners.replaceChildren(no("div", "pg-banners-heading", no("p", "pg-kicker", "Resultados em detalhes"), no("h3", null, "Indicadores por eixo e iniciativa")), ...grupos);
     if (!iniciativas.length) banners.append(no("div", "pg-empty", no("h3", null, porId.get(id).nome), no("p", null, "Os resultados deste eixo estão nos gráficos de projetos, recursos, vidas alcançadas e abrangência municipal ao lado.")));
   }
 
