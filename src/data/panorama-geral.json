@@ -1,0 +1,619 @@
+{
+  "meta": {
+    "titulo": "Panorama geral",
+    "recorte": "Resultados divulgados de dois anos de atuação",
+    "fonte": "Relatorio_Tecnico_RegeneraRS_Banners_e_FINBRA_SICONFI(1).docx",
+    "figuras": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "secaoBanners": 8
+  },
+  "totais": {
+    "projetos": 39,
+    "municipios": 224,
+    "vidasDiretas": 133722,
+    "vidasIndiretas": 876578,
+    "deliberado": 40500000,
+    "desembolsado": 22660000,
+    "potencialMobilizacao": 468500000,
+    "alavancagemRealizada": 11.52
+  },
+  "eixos": [
+    {
+      "id": "edu",
+      "nome": "Educação",
+      "projetos": 11,
+      "deliberado": 8010000,
+      "vidasDiretas": 104258,
+      "vidasIndiretas": 770000,
+      "municipios": 165
+    },
+    {
+      "id": "hab",
+      "nome": "Habitação",
+      "projetos": 5,
+      "deliberado": 3670000,
+      "vidasDiretas": 743,
+      "vidasIndiretas": 345,
+      "municipios": 8,
+      "recorteTerritorial": "Novas unidades habitacionais"
+    },
+    {
+      "id": "neg",
+      "nome": "Apoio a Negócios",
+      "projetos": 6,
+      "deliberado": 6840000,
+      "vidasDiretas": 17841,
+      "vidasIndiretas": 55164,
+      "municipios": 140
+    },
+    {
+      "id": "su",
+      "nome": "Soluções Urbanas",
+      "projetos": 13,
+      "deliberado": 16040000,
+      "vidasDiretas": 3435,
+      "vidasIndiretas": 17302,
+      "municipios": 16,
+      "recorteTerritorial": "Participação social em preparação e resposta"
+    },
+    {
+      "id": "multi",
+      "nome": "Projetos Multissetoriais",
+      "projetos": 4,
+      "deliberado": 5990000,
+      "vidasDiretas": 7445,
+      "vidasIndiretas": 33767,
+      "municipios": null
+    }
+  ],
+  "estagios": [
+    {
+      "nome": "Em acompanhamento",
+      "valor": 21
+    },
+    {
+      "nome": "Em implementação",
+      "valor": 10
+    },
+    {
+      "nome": "Finalizados",
+      "valor": 8
+    }
+  ],
+  "resiliencia": [
+    {
+      "rotulo": "Participação social em preparação e resposta",
+      "valor": 16
+    },
+    {
+      "rotulo": "Planos de contingência revisados e melhorados",
+      "valor": 7
+    }
+  ],
+  "educacao": {
+    "formacao": [
+      {
+        "rotulo": "Professores capacitados",
+        "valor": 8400,
+        "texto": "Mais de 8.400"
+      },
+      {
+        "rotulo": "Profissionais em acolhimento",
+        "valor": 2500
+      },
+      {
+        "rotulo": "Lideranças educacionais",
+        "valor": 285
+      }
+    ],
+    "escolas": [
+      {
+        "rotulo": "Escolas beneficiadas",
+        "valor": 500
+      },
+      {
+        "rotulo": "Ensino Médio Integral",
+        "valor": 279
+      },
+      {
+        "rotulo": "Escolas com equipamentos",
+        "valor": 73
+      }
+    ]
+  },
+  "ordemBanners": [
+    "edu",
+    "neg",
+    "su",
+    "multi"
+  ],
+  "banners": [
+    {
+      "id": "aceleracao",
+      "eixo": "edu",
+      "titulo": "Programa de Aceleração RegeneraRS",
+      "indicadores": [
+        {
+          "texto": "5",
+          "rotulo": "projetos acelerados",
+          "valor": 5
+        },
+        {
+          "texto": "4",
+          "rotulo": "cidades",
+          "valor": 4
+        },
+        {
+          "texto": "16",
+          "rotulo": "participantes",
+          "valor": 16
+        },
+        {
+          "texto": "75",
+          "rotulo": "check-ins",
+          "valor": 75
+        },
+        {
+          "texto": "14",
+          "rotulo": "mentorias",
+          "valor": 14
+        }
+      ]
+    },
+    {
+      "id": "mapeamento-emocional",
+      "eixo": "edu",
+      "titulo": "Mapeamento emocional — Ciclo 2",
+      "indicadores": [
+        {
+          "texto": "8",
+          "rotulo": "dimensões avaliadas",
+          "valor": 8
+        },
+        {
+          "texto": "74,5",
+          "rotulo": "média de sobrecarga emocional",
+          "valor": 74.5
+        },
+        {
+          "texto": "61,9",
+          "rotulo": "média de TEPT",
+          "valor": 61.9
+        },
+        {
+          "texto": "62,7",
+          "rotulo": "média de autocuidado",
+          "valor": 62.7
+        }
+      ],
+      "nota": "Médias na escala utilizada pelo levantamento."
+    },
+    {
+      "id": "sos-chuvas",
+      "eixo": "edu",
+      "titulo": "SOS Chuvas Porto Alegre",
+      "indicadores": [
+        {
+          "texto": "31",
+          "rotulo": "casas construídas",
+          "valor": 31
+        },
+        {
+          "texto": "31",
+          "rotulo": "famílias",
+          "valor": 31
+        },
+        {
+          "texto": "1.380 m²",
+          "rotulo": "área",
+          "valor": 1380
+        },
+        {
+          "texto": "R$ 6 mi",
+          "rotulo": "valor informado",
+          "valor": 6000000
+        }
+      ]
+    },
+    {
+      "id": "de-volta-escola",
+      "eixo": "edu",
+      "titulo": "De Volta para a Escola",
+      "indicadores": [
+        {
+          "texto": "28.187",
+          "rotulo": "estudantes",
+          "valor": 28187
+        },
+        {
+          "texto": "73",
+          "rotulo": "escolas",
+          "valor": 73
+        },
+        {
+          "texto": "22",
+          "rotulo": "cidades",
+          "valor": 22
+        },
+        {
+          "texto": "449",
+          "rotulo": "itens",
+          "valor": 449
+        }
+      ]
+    },
+    {
+      "id": "refundacao",
+      "eixo": "edu",
+      "titulo": "Refundação da Educação no RS",
+      "indicadores": [
+        {
+          "texto": "120",
+          "rotulo": "escolas",
+          "valor": 120
+        },
+        {
+          "texto": "24 mil",
+          "rotulo": "servidores",
+          "valor": 24000
+        },
+        {
+          "texto": "2.500",
+          "rotulo": "profissionais",
+          "valor": 2500
+        },
+        {
+          "texto": "3",
+          "rotulo": "fases",
+          "valor": 3
+        }
+      ]
+    },
+    {
+      "id": "encanta-hub",
+      "eixo": "edu",
+      "titulo": "Encanta Hub",
+      "indicadores": [
+        {
+          "texto": "480",
+          "rotulo": "alunos",
+          "valor": 480
+        },
+        {
+          "texto": "80",
+          "rotulo": "educadores",
+          "valor": 80
+        },
+        {
+          "texto": "6",
+          "rotulo": "escolas",
+          "valor": 6
+        },
+        {
+          "texto": "500 m²",
+          "rotulo": "área reformada",
+          "valor": 500
+        }
+      ]
+    },
+    {
+      "id": "emi-reconstroi",
+      "eixo": "edu",
+      "titulo": "Ensino Médio Integral que Reconstrói",
+      "indicadores": [
+        {
+          "texto": "279",
+          "rotulo": "escolas EMI",
+          "valor": 279
+        },
+        {
+          "texto": "23 mil",
+          "rotulo": "vidas",
+          "valor": 23000
+        },
+        {
+          "texto": "10",
+          "rotulo": "escolas no piloto ERER",
+          "valor": 10
+        },
+        {
+          "texto": "20%",
+          "rotulo": "IDEB superior",
+          "valor": 20
+        }
+      ]
+    },
+    {
+      "id": "liderancas-educacao",
+      "eixo": "edu",
+      "titulo": "Lideranças pela Educação",
+      "indicadores": [
+        {
+          "texto": "10",
+          "rotulo": "municípios",
+          "valor": 10
+        },
+        {
+          "texto": "3",
+          "rotulo": "jornadas",
+          "valor": 3
+        },
+        {
+          "texto": "2",
+          "rotulo": "anos",
+          "valor": 2
+        },
+        {
+          "texto": "R$ 700 mil",
+          "rotulo": "valor informado",
+          "valor": 700000
+        }
+      ]
+    },
+    {
+      "id": "mulheres-transformam",
+      "eixo": "neg",
+      "titulo": "Mulheres Transformam",
+      "indicadores": [
+        {
+          "texto": "70",
+          "rotulo": "mulheres capacitadas",
+          "valor": 70
+        },
+        {
+          "texto": "44",
+          "rotulo": "certificadas",
+          "valor": 44
+        },
+        {
+          "texto": "27,91%",
+          "rotulo": "abriram negócios",
+          "valor": 27.91
+        },
+        {
+          "texto": "14,4%",
+          "rotulo": "aumento de renda",
+          "valor": 14.4
+        }
+      ]
+    },
+    {
+      "id": "estimulo-transparencia",
+      "eixo": "neg",
+      "titulo": "Estímulo — transparência 2025",
+      "indicadores": [
+        {
+          "texto": "6,1 mil",
+          "rotulo": "micro e pequenas empresas",
+          "valor": 6100
+        },
+        {
+          "texto": "63 mil",
+          "rotulo": "empregos",
+          "valor": 63000
+        },
+        {
+          "texto": "30%",
+          "rotulo": "mulheres",
+          "valor": 30
+        },
+        {
+          "texto": "R$ 400 mi",
+          "rotulo": "crédito",
+          "valor": 400000000
+        }
+      ],
+      "recorte": "Transparência 2025"
+    },
+    {
+      "id": "oficinas-lami",
+      "eixo": "su",
+      "titulo": "Comunidades Resilientes — oficinas de Lami",
+      "indicadores": [
+        {
+          "texto": "39",
+          "rotulo": "participantes na 1ª oficina",
+          "valor": 39
+        },
+        {
+          "texto": "38",
+          "rotulo": "participantes na 2ª oficina",
+          "valor": 38
+        }
+      ]
+    },
+    {
+      "id": "encontro-prefeitos",
+      "eixo": "su",
+      "titulo": "2º Encontro de Prefeitos",
+      "indicadores": [
+        {
+          "texto": "24",
+          "rotulo": "lideranças",
+          "valor": 24
+        },
+        {
+          "texto": "9",
+          "rotulo": "cidades",
+          "valor": 9
+        },
+        {
+          "texto": "152 mil",
+          "rotulo": "matrículas",
+          "valor": 152000
+        },
+        {
+          "texto": "100%",
+          "rotulo": "satisfação",
+          "valor": 100
+        }
+      ]
+    },
+    {
+      "id": "fundo-casa",
+      "eixo": "su",
+      "titulo": "Fundo Casa — relatório anual",
+      "indicadores": [
+        {
+          "texto": "2,04 mi",
+          "rotulo": "pessoas diretas",
+          "valor": 2040000
+        },
+        {
+          "texto": "4,09 mi",
+          "rotulo": "pessoas indiretas",
+          "valor": 4090000
+        },
+        {
+          "texto": "646",
+          "rotulo": "apoios",
+          "valor": 646
+        },
+        {
+          "texto": "R$ 46,65 mi",
+          "rotulo": "valor informado",
+          "valor": 46650000
+        }
+      ],
+      "recorte": "Relatório anual"
+    },
+    {
+      "id": "favela-3d",
+      "eixo": "su",
+      "titulo": "Favela 3D Vila Costaneira",
+      "indicadores": [
+        {
+          "texto": "192",
+          "rotulo": "melhorias",
+          "valor": 192
+        },
+        {
+          "texto": "21",
+          "rotulo": "moradias definitivas",
+          "valor": 21
+        },
+        {
+          "texto": "14",
+          "rotulo": "lideranças",
+          "valor": 14
+        },
+        {
+          "texto": "73",
+          "rotulo": "pessoas qualificadas",
+          "valor": 73
+        }
+      ]
+    },
+    {
+      "id": "recicla-bonja",
+      "eixo": "su",
+      "titulo": "Recicla Bonja — Mãos Verdes",
+      "indicadores": [
+        {
+          "texto": "9.201 kg",
+          "rotulo": "resíduos reciclados",
+          "valor": 9201
+        },
+        {
+          "texto": "1.561",
+          "rotulo": "coletas",
+          "valor": 1561
+        },
+        {
+          "texto": "270",
+          "rotulo": "famílias",
+          "valor": 270
+        },
+        {
+          "texto": "87,2%",
+          "rotulo": "material reciclável",
+          "valor": 87.2
+        }
+      ]
+    },
+    {
+      "id": "habitat-brasil",
+      "eixo": "su",
+      "titulo": "Habitat Brasil — relatório anual",
+      "indicadores": [
+        {
+          "texto": "487",
+          "rotulo": "intervenções",
+          "valor": 487
+        },
+        {
+          "texto": "680",
+          "rotulo": "voluntários",
+          "valor": 680
+        },
+        {
+          "texto": "905",
+          "rotulo": "pessoas capacitadas",
+          "valor": 905
+        },
+        {
+          "texto": "100",
+          "rotulo": "cisternas",
+          "valor": 100
+        }
+      ],
+      "recorte": "Relatório anual"
+    },
+    {
+      "id": "trilhars",
+      "eixo": "multi",
+      "titulo": "TrilhaRS",
+      "indicadores": [
+        {
+          "texto": "14.630",
+          "rotulo": "vidas diretas",
+          "valor": 14630
+        },
+        {
+          "texto": "461.899",
+          "rotulo": "vidas indiretas",
+          "valor": 461899
+        },
+        {
+          "texto": "18",
+          "rotulo": "projetos",
+          "valor": 18
+        },
+        {
+          "texto": "33",
+          "rotulo": "municípios",
+          "valor": 33
+        }
+      ]
+    },
+    {
+      "id": "coalizaors",
+      "eixo": "multi",
+      "titulo": "CoalizãoRS",
+      "indicadores": [
+        {
+          "texto": "30",
+          "rotulo": "organizações",
+          "valor": 30
+        },
+        {
+          "texto": "5",
+          "rotulo": "projetos",
+          "valor": 5
+        },
+        {
+          "texto": "R$ 2 bi",
+          "rotulo": "valor informado",
+          "valor": 2000000000
+        }
+      ]
+    }
+  ]
+}
