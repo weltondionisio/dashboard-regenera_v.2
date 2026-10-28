@@ -10,11 +10,13 @@ import {valorizacoes} from "./components/valorizacoes.js";
 import {pessoas} from "./components/pessoas.js";
 import {eixos} from "./components/eixos.js";
 import {espaco} from "./components/espaco.js";
+import {panoramaGeral} from "./components/panorama.js";
 import {assistenteRegenera} from "./components/assistente.js";
 
 const dados = FileAttachment("data/painel.json").json();
 const municipios = FileAttachment("data/municipios.json").json();
 const rs = FileAttachment("data/rs.json").json();
+const dadosPanorama = FileAttachment("data/panorama-geral.json").json();
 ```
 
 ```js
@@ -43,6 +45,12 @@ display(eixos(dados));
 
 ```js
 display(espaco(dados, municipios, rs));
+```
+
+<div id="panorama-geral" class="ancora"></div>
+
+```js
+display(panoramaGeral(dados, dadosPanorama));
 ```
 
 ```js
