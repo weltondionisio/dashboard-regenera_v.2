@@ -1,7 +1,7 @@
 import {COR, el, embrulho} from "./base.js";
 
 function Cabecalho(d) {
-  const links = [["valorizacoes", "Valorizações"], ["pessoas", "Pessoas"], ["eixos", "Eixos"], ["espaco", "Contexto espacial"]].map(([id, t]) => {
+  const links = [["valorizacoes", "Valorizações"], ["pessoas", "Pessoas"], ["eixos", "Eixos"], ["espaco", "Contexto espacial"], ["panorama-geral", "Panorama geral"]].map(([id, t]) => {
     const a = el("a", null, t);
     a.href = "#" + id; a.className = "nav-link"; a.dataset.alvo = id;
     return a;
