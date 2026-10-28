@@ -12,7 +12,7 @@ function no(tag, classe, ...filhos) {
 function cartao(figura, titulo, subtitulo = "") {
   const n = no("article", "pg-card");
   n.dataset.figura = String(figura);
-  n.append(no("p", "pg-kicker", `Figura ${figura}`), no("h3", "pg-card-title", titulo));
+  n.append(no("h3", "pg-card-title", titulo));
   if (subtitulo) n.append(no("p", "pg-card-subtitle", subtitulo));
   return n;
 }
