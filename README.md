@@ -2,7 +2,7 @@
 
 Dashboard interativo para acompanhar os projetos do RegeneraRS no Rio Grande do Sul. A aplicação reúne indicadores financeiros, vidas alcançadas, entregas por eixo e distribuição territorial dos projetos em uma interface de consulta e exploração dos dados.
 
-**[Acessar a aplicação](https://dashboard-regenera.vercel.app/)**
+**[Acessar a aplicação](https://dashboard-regenera-v-2-9kejbisva-atenea12.vercel.app/#espaco)**
 
 O acesso está sujeito às permissões configuradas na hospedagem da Vercel.
 
