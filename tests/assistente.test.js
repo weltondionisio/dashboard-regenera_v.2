@@ -5,7 +5,7 @@ import {Readable} from "node:stream";
 import {createCatalog, dataVersion, validateSelection, modelRequest, NO_DATA} from "../server/assistente-core.js";
 import {createHandler} from "../api/assistente.js";
 
-const [painel, municipios, geo] = await Promise.all(["painel", "municipios", "rs"].map(async name => JSON.parse(await readFile(new URL(`../src/data/${name}.json`, import.meta.url), "utf8"))));
+const [painel, municipios, geo, panorama] = await Promise.all(["painel", "municipios", "rs", "panorama-geral"].map(async name => JSON.parse(await readFile(new URL(`../src/data/${name}.json`, import.meta.url), "utf8"))));
 const catalog = createCatalog(painel, municipios, geo);
 const body = (extra = {}) => ({pergunta: "Qual o valor mobilizado?", historico: [], versao: catalog.versao, ...extra});
 const modelResponse = (selection, finishReason = "STOP") => ({ok: true, status: 200, json: async () => ({candidates: [{finishReason, content: {parts: [{text: JSON.stringify(selection)}]}}]})});
@@ -21,13 +21,52 @@ async function invoke(input = body(), dependencies = {}, request = {}) {
 }
 
 test("o catálogo usa os totais dos JSONs e preserva mobilização ausente", () => {
-  assert.equal(catalog.byId.get("geral.ind").texto, "Vidas alcançadas indiretamente: 1.076.578.");
+  assert.equal(catalog.byId.get("geral.ind").texto, "Vidas alcançadas indiretamente: 876.578.");
+  assert.equal(painel.eixos.find(e => e.id === "su").ind, 17302);
+  assert.equal(painel.totais.ind, painel.eixos.reduce((sum, e) => sum + e.ind, 0));
+  assert.equal(painel.totais.vidas, painel.totais.dir + painel.totais.ind);
+  assert.equal(painel.totais.vidas, 1010300);
+  assert.equal(painel.totais.ind, panorama.totais.vidasIndiretas);
+  for (const e of painel.eixos) {
+    const correspondente = panorama.eixos.find(item => item.id === e.id);
+    assert.equal(e.dir, correspondente.vidasDiretas);
+    assert.equal(e.ind, correspondente.vidasIndiretas);
+  }
+  assert.match(catalog.byId.get("geral.fonteVidas").texto, /V4_monitoramento.*Vidas Alcançadas/);
+  assert.doesNotMatch(catalog.byId.get("projeto.4d.entrega").texto, /200[.,]000.*indiret/);
   const p = painel.projetos.find(p => p.mob === null);
   assert.ok(p);
   assert.match(catalog.byId.get(`projeto.${p.id}.mob`).texto, /não informado/);
   assert.equal(catalog.byId.size, catalog.facts.length);
   assert.match(catalog.byId.get("geral.alavancagem").texto, /11,52 vezes/);
-  assert.match(catalog.byId.get("geral.alavancagem").texto, /7,46 vezes/);
+  assert.doesNotMatch(catalog.byId.get("geral.alavancagem").texto, /7,46|todo o portfólio/);
+  assert.doesNotMatch(painel.insights.V03.frase, /Contando todos os 39|7,46/);
+});
+
+test("as entregas por eixo seguem as figuras e preservam os qualificadores", () => {
+  const axes = new Map(painel.eixos.map(e => [e.id, e]));
+  assert.equal(axes.get("edu").hero.total, 500);
+  assert.deepEqual(axes.get("edu").cards.map(c => c.v), ["+8.400", "279", "285", "2.500", "73"]);
+  assert.match(axes.get("edu").cards.at(-1).l, /mais de 400/);
+  assert.equal(axes.get("hab").hero.total, 240);
+  assert.deepEqual(axes.get("hab").cards.map(c => c.v), ["118", "8", "200", "615"]);
+  assert.equal(axes.get("su").hero.total, 600);
+  assert.deepEqual(axes.get("su").cards.map(c => c.v), ["+80", "7", "16", "3"]);
+  assert.equal(axes.get("neg").hero.total, 1200);
+  assert.deepEqual(axes.get("neg").cards.map(c => c.v), ["140", "+17", "+ R$ 67 mi"]);
+  for (const id of ["hab", "su", "neg"]) {
+    assert.equal(axes.get(id).hero.qualificador, "mais_de");
+    assert.match(catalog.byId.get(`eixo.${id}.entregas`).texto, /mais de/);
+  }
+  for (const id of ["edu", "hab", "su", "neg"]) {
+    assert.equal(axes.get(id).hero.tipo, "agregado");
+    assert.equal(catalog.byId.has(`eixo.${id}.comparacao`), false);
+    assert.equal(axes.get(id).hero.parts.reduce((sum, p) => sum + p.n, 0), axes.get(id).hero.total);
+  }
+  assert.match(catalog.byId.get("projeto.emi.entrega").texto, /279 escolas/);
+  assert.match(catalog.byId.get("projeto.fav.entrega").texto, /35 casas entregues/);
+  assert.match(catalog.byId.get("projeto.leg.entrega").texto, /20 em construção/);
+  assert.match(catalog.byId.get("projeto.sos.entrega").texto, /mais de 400 equipamentos/);
 });
 
 test("municípios são únicos e não recebem rateio ou expansão de ação estadual", () => {
