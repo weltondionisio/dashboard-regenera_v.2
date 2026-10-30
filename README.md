@@ -8,10 +8,10 @@ O acesso está sujeito às permissões configuradas na hospedagem da Vercel.
 
 ## O que o painel apresenta
 
-- **Valorizações:** valores aprovados pelo Fundo RegeneraRS, previstos nos projetos e mobilizados, com comparações entre projetos e eixos.
-- **Pessoas:** vidas alcançadas diretamente e indiretamente, com distribuição por eixo.
+- **RegeneraRS em números:** valores aprovados pelo RegeneraRS, previstos nos projetos e mobilizados, com comparações entre projetos e eixos.
+- **Vidas Alcançadas:** vidas alcançadas diretamente e indiretamente, com distribuição por eixo e filtros Diretas e Indiretas.
 - **Eixos:** projetos, estágios de execução e entregas de Educação, Habitação, Soluções Urbanas, Negócios e Projetos Multissetoriais.
-- **Contexto espacial:** mapa interativo dos municípios com projetos listados, com seleção por eixo e por projeto.
+- **Território:** mapa interativo dos municípios com projetos listados, com seleção por eixo e por projeto.
 
 ## Dados e interpretação
 
@@ -27,9 +27,9 @@ Os indicadores financeiros representam medidas diferentes:
 
 | Indicador | Significado |
 | --- | --- |
-| Aprovado | Aporte aprovado pelo Fundo RegeneraRS |
+| Aprovado | Aporte aprovado pelo RegeneraRS |
 | Previsto | Valor total previsto nos projetos |
-| Mobilizado | Valor total mobilizado pelos projetos, incluindo o aporte do Fundo |
+| Mobilizado | Valor total mobilizado pelos projetos, incluindo o aporte do RegeneraRS |
 
 Essas medidas não equivalem a desembolso. Os valores financeiros são apresentados por projeto e por eixo; os arquivos não informam rateio desses valores por município. A vinculação de um projeto a uma cidade indica presença na lista territorial, sem atribuir a ela todo o orçamento do projeto.
 
