@@ -60,9 +60,13 @@ invalidation.then(() => janelaAssistente.destroy());
 ```
 
 ```js
-const logoAtenea = await FileAttachment("assets/logo-atenea-latam.png").image({alt: "Atenea LATAM", width: 30, height: 30});
+const logoAtenea = await FileAttachment("assets/logo-atenea-latam.png").image({alt: "Grupo Atenea LATAM", width: 30, height: 30});
 const rodapeAtenea = document.createElement("footer");
 rodapeAtenea.className = "atenea-credit";
-rodapeAtenea.append("Desenvolvido por Atenea LATAM.", logoAtenea);
+const linkAtenea = document.createElement("a");
+linkAtenea.href = "https://grupoatenealatam.com/";
+linkAtenea.style.cssText = "display:inline-flex;align-items:center;gap:8px;color:inherit;text-decoration:none";
+linkAtenea.append("Desenvolvido por Grupo Atenea LATAM", logoAtenea);
+rodapeAtenea.append(linkAtenea);
 display(rodapeAtenea);
 ```
