@@ -168,7 +168,7 @@
 }
 
 /* Fontes e crédito de desenvolvimento na mesma linha. */
-.pg .pg-bottom { display: grid; grid-template-columns: minmax(0,1fr) auto; align-items: start; gap: 10px 24px; border-top: 1px solid rgba(240,234,216,.14); padding-top: 12px; }
+.pg .pg-bottom { display: grid; grid-template-columns: minmax(0,1fr) auto; align-items: start; gap: 10px 24px; border-top: 1px solid rgba(240,234,216,.14); padding-top: 12px; padding-bottom: 24px; }
 .pg .pg-bottom .pg-sources { min-width: 0; border-top: 0; padding-top: 0; }
 .pg .pg-bottom .pg-sources summary { line-height: 30px; }
 .atenea-credit { display: flex; align-items: center; justify-content: flex-end; gap: 8px; margin: 0; padding: 0; color: rgba(240,234,216,.72); font: 400 11px/1.4 Manrope, system-ui, sans-serif; text-align: right; }
