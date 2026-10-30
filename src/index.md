@@ -50,7 +50,8 @@ display(espaco(dados, municipios, rs));
 <div id="panorama-geral" class="ancora"></div>
 
 ```js
-display(panoramaGeral(dados, dadosPanorama));
+const painelPanorama = panoramaGeral(dados, dadosPanorama);
+display(painelPanorama);
 ```
 
 ```js
@@ -68,5 +69,13 @@ linkAtenea.href = "https://grupoatenealatam.com/";
 linkAtenea.style.cssText = "display:inline-flex;align-items:center;gap:8px;color:inherit;text-decoration:none";
 linkAtenea.append("Desenvolvido por Grupo Atenea LATAM", logoAtenea);
 rodapeAtenea.append(linkAtenea);
-display(rodapeAtenea);
+const fontesPanorama = painelPanorama.querySelector(".pg-sources");
+const linhaRodape = fontesPanorama.closest(".pg-bottom") || document.createElement("div");
+if (!linhaRodape.classList.contains("pg-bottom")) {
+  linhaRodape.className = "pg-bottom";
+  fontesPanorama.replaceWith(linhaRodape);
+  linhaRodape.append(fontesPanorama);
+}
+linhaRodape.querySelector(".atenea-credit")?.remove();
+linhaRodape.append(rodapeAtenea);
 ```
