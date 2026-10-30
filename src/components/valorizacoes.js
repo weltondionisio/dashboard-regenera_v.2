@@ -95,7 +95,11 @@ function Valorizacoes(d) {
         el("span", "display:flex;align-items:center;gap:8px;font-weight:700", el("span", `width:10px;height:10px;border-radius:50%;background:${e.cor}`), e.nome),
         el("span", null, v, pct)),
       el("span", "display:block;width:100%;height:6px;border-radius:999px;background:rgba(240,234,216,.1)", bar));
-    b.onclick = () => { st.vEixo = st.vEixo === e.id ? null : e.id; render(); };
+    b.onclick = () => {
+      st.vEixo = st.vEixo === e.id ? null : e.id;
+      if (st.vEixo) st.grouped = true;
+      render();
+    };
     return {e, b, v, pct, bar};
   });
   const cardEixos = el("div", CARD + "padding:14px;display:flex;flex-direction:column;gap:2px", linhas.map((l) => l.b));
@@ -104,8 +108,11 @@ function Valorizacoes(d) {
   const sv = svg("svg", {viewBox: `0 0 ${W} ${H}`, width: "100%", style: `display:block;width:100%;height:${H}px;overflow:visible`});
   sv.setAttribute("role", "img");
   sv.setAttribute("aria-label", "Bolhas: um círculo por projeto, área proporcional ao valor");
-  const gLbl = svg("g"), gB = svg("g");
-  sv.append(gB, gLbl);
+  const gLbl = svg("g"), gB = svg("g"), cam = svg("g");
+  cam.style.transition = `transform .9s ${EASE}`;
+  cam.append(gB, gLbl);
+  sv.append(cam);
+  let zoom = {s: 1, tx: 0, ty: 0};
   const SOMBRA = "paint-order:stroke;stroke:rgba(0,40,26,.8);stroke-width:3px;stroke-linejoin:round;pointer-events:none";
   const nodes = d.projetos.map((p) => ({p, eixo: p.eixo, x: CENTROS[p.eixo][0], y: CENTROS[p.eixo][1], r: 0}));
   for (const n of nodes) {
@@ -159,7 +166,7 @@ function Valorizacoes(d) {
     const box = direita.getBoundingClientRect(), esc = box.width / W;
     let x, y;
     if (ev) { x = ev.clientX - box.left; y = ev.clientY - box.top; }
-    else { x = n.x * esc; y = (n.y - n.r) * esc + 6; }
+    else { x = (n.x * zoom.s + zoom.tx) * esc; y = ((n.y - n.r) * zoom.s + zoom.ty) * esc + 6; }
     const tw = tip.offsetWidth || 240, th = tip.offsetHeight || 140;
     let left = x + 16, top = y + 16;
     if (left + tw > box.width - 8) left = x - tw - 16;
@@ -267,8 +274,24 @@ function Valorizacoes(d) {
     n.rot.append(tv);
   }
 
+  function enquadrar() {
+    const its = st.vEixo ? nodes.filter((n) => n.eixo === st.vEixo && n.r > 0.5) : [];
+    if (!its.length) { zoom = {s: 1, tx: 0, ty: 0}; }
+    else {
+      const x0 = d3.min(its, (n) => n.x - n.r), x1 = d3.max(its, (n) => n.x + n.r);
+      const y0 = d3.min(its, (n) => n.y - n.r) - (st.grouped ? 24 : 0), y1 = d3.max(its, (n) => n.y + n.r);
+      const s = Math.max(1, Math.min(2.4, (0.86 * W) / (x1 - x0), (0.86 * H) / (y1 - y0)));
+      zoom = {s, tx: W / 2 - s * (x0 + x1) / 2, ty: H / 2 - s * (y0 + y1) / 2};
+    }
+    cam.style.transform = `translate(${zoom.tx.toFixed(1)}px,${zoom.ty.toFixed(1)}px) scale(${zoom.s.toFixed(3)})`;
+  }
+
   function opacidades() {
-    for (const n of nodes) n.g.style.opacity = n.r <= 0.5 ? 0 : !st.vEixo || st.vEixo === n.eixo ? 1 : 0.15;
+    for (const n of nodes) {
+      const ativo = n.r > 0.5 && (!st.vEixo || st.vEixo === n.eixo);
+      n.g.style.opacity = ativo ? 1 : 0;
+      n.g.style.pointerEvents = ativo ? "auto" : "none";
+    }
     for (const {e, t} of rotEixo) {
       const vivo = nodes.some((n) => n.eixo === e.id && n.r > 0.5);
       t.style.opacity = vivo && st.grouped && (!st.vEixo || st.vEixo === e.id) ? 1 : 0;
@@ -278,7 +301,10 @@ function Valorizacoes(d) {
   function render() {
     const M = VM[st.vm];
     tabs.forEach(([k, b]) => (b.style.cssText = SEG(st.vm === k)));
-    bGrp.style.cssText = SEG(st.grouped); bAll.style.cssText = SEG(!st.grouped);
+    const travado = !!st.vEixo, estiloTrava = travado ? ";opacity:.45;cursor:not-allowed" : "";
+    bGrp.style.cssText = SEG(st.grouped) + estiloTrava; bAll.style.cssText = SEG(!st.grouped) + estiloTrava;
+    bGrp.disabled = bAll.disabled = travado;
+    gAgr.title = travado ? "Desmarque o eixo para mudar o agrupamento" : "";
     kicker.textContent = M.kicker;
     total.textContent = rsmi(M.tot);
     frase.mostrar(st.vm);
@@ -295,7 +321,6 @@ function Valorizacoes(d) {
     const showSeed = st.vm !== "apr";
     for (const n of nodes) {
       n.g.style.transform = `translate(${n.x.toFixed(1)}px,${n.y.toFixed(1)}px)`;
-      n.g.style.pointerEvents = n.r <= 0.5 ? "none" : "auto";
       n.esc.style.transform = `scale(${Math.max(n.r, 0.001).toFixed(2)})`;
       n.gs.style.transform = `scale(${(showSeed ? Math.min(n.rs, n.r) : 0.001).toFixed(2)})`;
       const v = val(n.p, st.vm);
@@ -311,6 +336,7 @@ function Valorizacoes(d) {
       t.textContent = `${e.nome} · ${rsmi(e[st.vm])}`;
     }
     opacidades();
+    enquadrar();
     legenda.replaceChildren(...[
       el("span", null, `círculo = um projeto · área = ${M.legend} (R$ milhões)`),
       showSeed ? el("span", "display:flex;align-items:center;gap:6px", el("span", `width:10px;height:10px;border-radius:50%;background:${COR.lima}`), "semente = Fundo RegeneraRS") : null,
@@ -321,7 +347,7 @@ function Valorizacoes(d) {
   render();
 
   function semTransicao(fn) {
-    const els = nodes.flatMap((n) => [n.g, n.esc, n.gs]);
+    const els = [cam, ...nodes.flatMap((n) => [n.g, n.esc, n.gs])];
     els.forEach((e) => (e.dataset.tr = e.style.transition, e.style.transition = "none"));
     fn();
     requestAnimationFrame(() => requestAnimationFrame(() => els.forEach((e) => (e.style.transition = e.dataset.tr))));
