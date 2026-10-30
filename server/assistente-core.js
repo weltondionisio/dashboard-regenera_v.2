@@ -50,11 +50,14 @@ export function createCatalog(painel, municipios, geo) {
   const names = new Map(geo.objects.municipios.geometries.map(g => [String(g.properties.cd_mun), g.properties.nm_mun]));
   const amount = value => value == null ? "não informado" : money.format(value);
   const number = value => value == null ? "não informado" : nf.format(value);
+  const indicator = (value, qualifier) => qualifier === "mais_de" ? `mais de ${number(value)}` : number(value);
   const lists = new Map(projects.map(p => [p.id, [...new Set((municipios.mun[p.id] || []).map(String))]]));
   const allCodes = [...new Set([...lists.values()].flat())];
   const ratio = (part, total) => Number.isFinite(part) && Number.isFinite(total) && total > 0 ? `${decimal.format(100 * part / total)}%` : "não calculável";
 
   add("geral.ciclo", `Ciclo dos dados do painel: ${painel.meta.ciclo}.`, "painel.json › meta.ciclo");
+  if (painel.meta.fonteVidas) add("geral.fonteVidas", `Fonte dos indicadores de vidas: ${painel.meta.fonteVidas}.`, "painel.json › meta.fonteVidas");
+  if (painel.meta.fonteEntregasEixos) add("geral.fonteEntregas", `Fonte dos indicadores consolidados por eixo: ${painel.meta.fonteEntregasEixos}`, "painel.json › meta.fonteEntregasEixos");
   add("geral.eixos", `O portfólio está organizado em ${painel.eixos.length} eixos: ${painel.eixos.map(e => e.nome).join("; ")}.`, "painel.json › eixos.nome");
   for (const [key, label] of [["apr", "Valor aprovado pelo RegeneraRS"], ["prev", "Valor total previsto nos projetos"], ["mob", "Valor total mobilizado pelos projetos"]]) {
     add(`geral.${key}`, `${label}: ${amount(painel.totais[key])}.`, `painel.json › totais.${key}`);
@@ -78,7 +81,7 @@ export function createCatalog(painel, municipios, geo) {
 
   const reported = projects.filter(p => p.mob != null);
   const denominator = reported.reduce((s, p) => s + p.apr, 0);
-  if (denominator > 0) add("geral.alavancagem", `Nos ${reported.length} projetos com mobilização informada, a razão entre mobilizado e aporte desses mesmos projetos é ${decimal.format(reported.reduce((s,p) => s+p.mob,0)/denominator)} vezes. Considerando o aporte de todo o portfólio, a razão é ${decimal.format(painel.totais.mob/painel.totais.apr)} vezes.`, "Cálculo sobre painel.json › projetos.apr, projetos.mob e totais");
+  if (denominator > 0) add("geral.alavancagem", `Nos ${reported.length} projetos com mobilização informada, a razão entre mobilizado e aporte desses mesmos projetos é ${decimal.format(reported.reduce((s,p) => s+p.mob,0)/denominator)} vezes.`, "Cálculo sobre painel.json › projetos.apr e projetos.mob, apenas nos projetos com mobilização informada");
   const phases = new Map();
   for (const p of projects) phases.set(p.fase, (phases.get(p.fase) || 0) + 1);
   add("geral.fases", `Estágios dos projetos: ${[...phases].map(([name, n]) => `${name}: ${number(n)}`).join("; ")}.`, "Contagem de painel.json › projetos.fase");
@@ -91,9 +94,10 @@ export function createCatalog(painel, municipios, geo) {
 
   for (const e of painel.eixos) {
     const group = projects.filter(p => p.eixo === e.id);
-    add(`eixo.${e.id}.resumo`, `O eixo ${e.nome} reúne ${group.length} projetos. O indicador de destaque do painel registra ${number(e.hero.total)} ${e.hero.label}. ${e.hero.nota || ""}`, `painel.json › eixos[${e.id}].hero; contagem de projetos do eixo`);
+    const totalHero = indicator(e.hero.total, e.hero.qualificador);
+    add(`eixo.${e.id}.resumo`, `O eixo ${e.nome} reúne ${group.length} projetos. O indicador de destaque do painel registra ${totalHero} ${e.hero.label}. ${e.hero.nota || ""}`, `painel.json › eixos[${e.id}].hero; contagem de projetos do eixo`);
     const orderedParts = [...e.hero.parts].filter(p => Number.isFinite(p.n)).sort((a, b) => b.n - a.n || a.nome.localeCompare(b.nome, "pt-BR"));
-    if (orderedParts.length) {
+    if (orderedParts.length && e.hero.tipo !== "agregado") {
       const leaders = orderedParts.filter(p => p.n === orderedParts[0].n);
       const matched = leaders.flatMap(item => group.filter(p => normalized(p.nome) === normalized(item.nome)));
       const criterio = e.hero.label;
@@ -110,8 +114,8 @@ export function createCatalog(painel, municipios, geo) {
     }
     add(`eixo.${e.id}.vidas`, `${e.nome}: ${number(e.dir)} vidas diretas e ${number(e.ind)} vidas indiretas.`, `painel.json › eixos[${e.id}].dir e .ind`);
     add(`eixo.${e.id}.participacoes`, `${e.nome}: ${ratio(e.apr, painel.totais.apr)} do aprovado, ${ratio(e.prev, painel.totais.prev)} do previsto e ${ratio(e.mob, painel.totais.mob)} do mobilizado do portfólio; ${ratio(e.dir, painel.totais.dir)} das vidas diretas e ${ratio(e.ind, painel.totais.ind)} das vidas indiretas.`, `Cálculos sobre painel.json › eixos[${e.id}] e totais`);
-    add(`eixo.${e.id}.entregas`, `${e.nome}: ${number(e.hero.total)} ${e.hero.label}. ${e.hero.nota || ""} ${e.cards.map(c => `${c.v}: ${c.l}`).join("; ")}.`, `painel.json › eixos[${e.id}].hero e .cards`);
-    add(`eixo.${e.id}.composicao`, `${e.nome}: composição do indicador “${e.hero.label}”: ${e.hero.parts.map(p => `${p.nome}: ${number(p.n)}`).join("; ")}. ${e.hero.nota || ""}`, `painel.json › eixos[${e.id}].hero.parts e .nota`);
+    add(`eixo.${e.id}.entregas`, `${e.nome}: ${totalHero} ${e.hero.label}. ${e.hero.nota || ""} ${e.cards.map(c => `${c.v}: ${c.l}`).join("; ")}.`, `painel.json › eixos[${e.id}].hero e .cards; meta.fonteEntregasEixos`);
+    add(`eixo.${e.id}.composicao`, e.hero.tipo === "agregado" ? `${e.nome}: indicador consolidado do eixo: ${totalHero} ${e.hero.label}. ${e.hero.nota || ""}` : `${e.nome}: composição do indicador “${e.hero.label}”: ${e.hero.parts.map(p => `${p.nome}: ${indicator(p.n, p.qualificador)}`).join("; ")}. ${e.hero.nota || ""}`, `painel.json › eixos[${e.id}].hero.parts e .nota`);
     const codes = new Set(group.flatMap(p => lists.get(p.id)));
     add(`eixo.${e.id}.municipios`, `${e.nome}: ${codes.size} municípios nas listas nominais. Ações estaduais e projetos sem lista não são convertidos em novos vínculos municipais.`, `municipios.json › mun; projetos do eixo ${e.id}`);
   }
