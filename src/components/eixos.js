@@ -30,11 +30,11 @@ function Eixos(d) {
     pill.textContent = e.nome;
     manchete.textContent = e.manchete;
     const h = e.hero;
-    heroTot.textContent = nf(h.total);
+    heroTot.textContent = `${h.qualificador === "mais_de" ? "+" : ""}${nf(h.total)}`;
     heroLbl.textContent = h.label;
     icones.replaceChildren(...h.parts.flatMap((p, i) => Array.from({length: Math.max(1, Math.round(p.n / h.unit))}, () => iconSvg(IC[h.icon], 22, PAL[i % PAL.length]))));
     partes.replaceChildren(...h.parts.map((p, i) => {
-      const s = el("span", "display:flex;align-items:center;gap:7px", el("span", `width:10px;height:10px;border-radius:3px;background:${PAL[i % PAL.length]}`), `${p.nome} · `, el("b", null, nf(p.n)));
+      const s = el("span", "display:flex;align-items:center;gap:7px", el("span", `width:10px;height:10px;border-radius:3px;background:${PAL[i % PAL.length]}`), `${p.nome} · `, el("b", null, `${p.qualificador === "mais_de" ? "+" : ""}${nf(p.n)}`));
       return s;
     }), el("span", `color:${COR.salvia}`, `1 ícone = ${nf(h.unit)}`));
     nota.textContent = h.nota;
