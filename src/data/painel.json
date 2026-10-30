@@ -1,6 +1,9 @@
 {
  "meta": {
-  "ciclo": "jul/2026"
+  "ciclo": "jul/2026",
+  "fonteVidas": "V4_monitoramento_julho_de_atenea (1).xlsx › aba “Vidas Alcançadas”, resumo por eixo (J2:N8)",
+  "fonteEntregasEixos": "Figuras de indicadores por eixo fornecidas pela equipe RegeneraRS em 30/10/2026 (204222.jpg e 204223.jpg).",
+  "fonteEntregasProjetos": "V4_monitoramento_julho_de_atenea (1).xlsx, aba “Indicadores”; escolas com Ensino Médio Integral implementado e escolas equipadas conforme as figuras validadas do relatório."
  },
  "totais": {
   "apr": 40574073,
@@ -9,8 +12,8 @@
   "n": 39,
   "n_mob": 29,
   "dir": 133722,
-  "ind": 1076578,
-  "vidas": 1210300
+  "ind": 876578,
+  "vidas": 1010300
  },
  "eixos": [
   {
@@ -22,47 +25,46 @@
    "mob": 22514877.63,
    "dir": 104258,
    "ind": 770000,
-   "manchete": "11 projetos, 8 com pessoas alcançadas informadas. É o eixo com mais vidas diretas do portfólio — e onde está o Refundar.",
+   "manchete": "500 escolas beneficiadas em 165 municípios, com formação de professores, lideranças e profissionais da educação.",
    "hero": {
-    "total": 595,
-    "label": "escolas impactadas pelos projetos de Educação",
+    "total": 500,
+    "label": "escolas beneficiadas em 165 municípios",
     "icon": "escola",
     "unit": 5,
-    "nota": "A mesma escola pode aparecer em mais de um projeto.",
+    "tipo": "agregado",
+    "nota": "",
     "parts": [
      {
-      "nome": "Ensino Médio Integral",
-      "n": 440
-     },
-     {
-      "nome": "S.O.S De Volta para Escola",
-      "n": 73
-     },
-     {
-      "nome": "Programa de Saúde Mental",
-      "n": 72
-     },
-     {
-      "nome": "Escolas Indígenas",
-      "n": 10
+      "nome": "Escolas beneficiadas",
+      "n": 500
      }
     ]
    },
    "cards": [
     {
-     "v": "28.197",
-     "l": "estudantes no Ensino Médio Integral",
-     "icon": "cap"
-    },
-    {
-     "v": "8.425",
-     "l": "professores capacitados (EMI + Encanta Hub)",
+     "v": "+8.400",
+     "l": "professores capacitados",
      "icon": "medal"
     },
     {
-     "v": "24.000",
-     "l": "servidores com acesso a apoio psicoemocional — linha do Refundar",
-     "icon": "sorriso"
+     "v": "279",
+     "l": "escolas com Ensino Médio Integral implementado",
+     "icon": "escola"
+    },
+    {
+     "v": "285",
+     "l": "lideranças educacionais capacitadas para fortalecimento da gestão",
+     "icon": "pessoa"
+    },
+    {
+     "v": "2.500",
+     "l": "profissionais capacitados em habilidades de acolhimento",
+     "icon": "coracao"
+    },
+    {
+     "v": "73",
+     "l": "escolas beneficiadas com mais de 400 equipamentos",
+     "icon": "escola"
     }
    ]
   },
@@ -75,43 +77,43 @@
    "mob": 78242000.00000001,
    "dir": 743,
    "ind": 345,
-   "manchete": "Mede-se em casas: cada unidade entregue, pronta ou em obra conta 4 pessoas.",
+   "manchete": "Apoio à construção e à reforma de moradias em 8 municípios, com capacitação profissional na construção civil.",
    "hero": {
-    "total": 83,
-    "label": "casas entregues no eixo Habitação",
+    "total": 240,
+    "qualificador": "mais_de",
+    "label": "unidades habitacionais com apoio à construção",
     "icon": "casa",
-    "unit": 1,
-    "nota": "Projetos do eixo Soluções Urbanas também entregam moradias: a Favela 3D Vila Costaneira informa 40 casas novas entregues e 200 reformadas. Elas são contadas separadamente, no eixo Soluções Urbanas.",
+    "unit": 2,
+    "tipo": "agregado",
+    "nota": "O recorte de Habitação inclui as entregas habitacionais da Favela 3D Vila Costaneira.",
     "parts": [
      {
-      "nome": "Legado Habitação RS",
-      "n": 42
-     },
-     {
-      "nome": "2 por 1",
-      "n": 31
-     },
-     {
-      "nome": "Uma Casa por Dia",
-      "n": 10
+      "nome": "Unidades habitacionais apoiadas",
+      "n": 240,
+      "qualificador": "mais_de"
      }
     ]
    },
    "cards": [
     {
-     "v": "81",
-     "l": "casas prontas, ainda não entregues",
+     "v": "118",
+     "l": "casas já entregues",
      "icon": "casa"
     },
     {
-     "v": "595",
-     "l": "pessoas formadas na construção civil",
-     "icon": "mulher"
+     "v": "8",
+     "l": "municípios contemplados: 6 no Vale do Taquari e 2 na RMPA",
+     "icon": "casa"
     },
     {
-     "v": "R$ 70 mi",
-     "l": "mobilizados só pelo Legado — 89% do eixo",
-     "icon": "grafico"
+     "v": "200",
+     "l": "casas com reformas habitacionais",
+     "icon": "casa"
+    },
+    {
+     "v": "615",
+     "l": "beneficiários capacitados em construção civil",
+     "icon": "mulher"
     }
    ]
   },
@@ -123,64 +125,44 @@
    "prev": 50724585.83,
    "mob": 33737560.48,
    "dir": 3435,
-   "ind": 217302,
-   "manchete": "13 projetos de bairro e preparação climática; 5 ainda em implementação.",
+   "ind": 17302,
+   "manchete": "Mobilização comunitária, preparação e resposta a desastres, revisão de planos de contingência e soluções baseadas na natureza.",
    "hero": {
-    "total": 3435,
-    "label": "pessoas alcançadas diretamente em Soluções Urbanas",
+    "total": 600,
+    "qualificador": "mais_de",
+    "label": "pessoas diretamente envolvidas em ações de preparação e resposta a eventos climáticos extremos",
     "icon": "pessoa",
-    "unit": 25,
+    "unit": 10,
+    "tipo": "agregado",
     "nota": "",
     "parts": [
      {
-      "nome": "Fundo Reconstruir RS",
-      "n": 1989
-     },
-     {
-      "nome": "Tchê Prepara I",
-      "n": 462
-     },
-     {
-      "nome": "Favela 3D Vila Costaneira",
-      "n": 326
-     },
-     {
-      "nome": "Centro de Referência de Resíduos",
-      "n": 314
-     },
-     {
-      "nome": "Tamanduá (Teia I)",
-      "n": 170
-     },
-     {
-      "nome": "Lideranças Comunitárias (CUFA)",
-      "n": 82
-     },
-     {
-      "nome": "Sementes da Vida Nova (Teia I)",
-      "n": 62
-     },
-     {
-      "nome": "Comunidades Resilientes",
-      "n": 30
+      "nome": "Participantes nas ações de preparação e resposta",
+      "n": 600,
+      "qualificador": "mais_de"
      }
     ]
    },
    "cards": [
     {
-     "v": "544",
-     "l": "pessoas em ações de preparação e resposta a eventos extremos",
-     "icon": "pessoa"
+     "v": "+80",
+     "l": "organizações e grupos comunitários mobilizados em adaptação climática e fortalecimento territorial",
+     "icon": "coracao"
     },
     {
-     "v": "10",
-     "l": "infraestruturas resilientes implementadas",
+     "v": "7",
+     "l": "municípios com planos de contingência revisados e melhorados por equipe especializada",
      "icon": "casa"
     },
     {
-     "v": "53",
-     "l": "organizações e grupos comunitários envolvidos",
-     "icon": "coracao"
+     "v": "16",
+     "l": "municípios com ampliação da participação social na preparação e resposta a desastres",
+     "icon": "pessoa"
+    },
+    {
+     "v": "3",
+     "l": "territórios com processos de planejamento e desenvolvimento de soluções baseadas na natureza (SbNs)",
+     "icon": "broto"
     }
    ]
   },
@@ -193,43 +175,38 @@
    "mob": 162157510.0,
    "dir": 17841,
    "ind": 55164,
-   "manchete": "Crédito e apoio a pequenos negócios: o eixo que mais mobilizou (54% do total).",
+   "manchete": "Empreendedores e empresas apoiados com crédito, capacitação e atuação em seus territórios.",
    "hero": {
-    "total": 1227,
+    "total": 1200,
+    "qualificador": "mais_de",
     "label": "empreendedores e empresas apoiados",
     "icon": "mala",
     "unit": 10,
-    "nota": "",
+    "tipo": "agregado",
+    "nota": "95% dos empreendedores e empresas apoiados estão em regiões de baixa renda.",
     "parts": [
      {
-      "nome": "Estímulo Retomada RS",
-      "n": 965
-     },
-     {
-      "nome": "SuperaRS",
-      "n": 232
-     },
-     {
-      "nome": "Impacta RS",
-      "n": 30
+      "nome": "Empreendedores e empresas apoiados",
+      "n": 1200,
+      "qualificador": "mais_de"
      }
     ]
    },
    "cards": [
     {
-     "v": "R$ 67,3 mi",
-     "l": "em crédito disponibilizado pelo Estímulo",
-     "icon": "grafico"
+     "v": "140",
+     "l": "municípios atendidos",
+     "icon": "casa"
     },
     {
-     "v": "100",
-     "l": "pessoas capacitadas para empregabilidade",
+     "v": "+17",
+     "l": "pessoas capacitadas em gestão, empreendedorismo e desenvolvimento de negócios",
      "icon": "cap"
     },
     {
-     "v": "150",
-     "l": "mulheres no Mulheres Transformam",
-     "icon": "mulher"
+     "v": "+ R$ 67 mi",
+     "l": "em crédito aprovado para micro e pequenas empresas atingidas pelas chuvas",
+     "icon": "grafico"
     }
    ]
   },
@@ -324,7 +301,7 @@
    "apr": 1300000,
    "prev": 11300000,
    "mob": 11469272.61,
-   "entrega": "440 escolas · 28.197 estudantes · 8.275 professores"
+   "entrega": "279 escolas com Ensino Médio Integral implementado · 28.197 estudantes · 8.275 professores"
   },
   {
    "id": "4d",
@@ -334,7 +311,7 @@
    "apr": 500000,
    "prev": 1400000,
    "mob": 561448.75,
-   "entrega": "3 infraestruturas · 10 organizações · 200.000 indiretas = frequentadores do Caldeira"
+   "entrega": "3 infraestruturas · 10 organizações"
   },
   {
    "id": "est",
@@ -354,7 +331,7 @@
    "apr": 1000000,
    "prev": 10000000,
    "mob": 12000000,
-   "entrega": "40 casas entregues · 200 reformadas · 73 pessoas capacitadas"
+   "entrega": "35 casas entregues · 200 reformadas · 73 pessoas capacitadas"
   },
   {
    "id": "rec",
@@ -444,7 +421,7 @@
    "apr": 1000000,
    "prev": 55000000.00000001,
    "mob": 70000000.00000001,
-   "entrega": "42 casas entregues · 66 prontas · 8 em construção · 480 formados na construção civil"
+   "entrega": "42 casas entregues · 66 prontas · 20 em construção · 480 formados na construção civil"
   },
   {
    "id": "rede",
@@ -504,7 +481,7 @@
    "apr": 250000,
    "prev": 250000,
    "mob": 1456630.52,
-   "entrega": "73 escolas com cozinha reequipada · 449 itens · 28.187 estudantes"
+   "entrega": "73 escolas beneficiadas com mais de 400 equipamentos · 28.187 estudantes"
   },
   {
    "id": "sup",
@@ -675,7 +652,7 @@
    "frase": "Os projetos previam 11,5 vezes o aporte do RegeneraRS."
   },
   "V03": {
-   "frase": "Nos 29 projetos que já reportam mobilização, cada R$ 1 do RegeneraRS virou R$ 11,52. Contando todos os 39, R$ 7,46."
+   "frase": "Nos 29 projetos que já reportam mobilização, cada R$ 1 do RegeneraRS virou R$ 11,52."
   },
   "V05": {
    "frase": ""
@@ -693,10 +670,10 @@
    "frase": "Pessoas atendidas, capacitadas ou apoiadas pelos projetos. 78% estão em Educação."
   },
   "P03": {
-   "frase": "8 vidas indiretas para cada pessoa alcançada diretamente. 90% delas vêm de dois projetos: Refundar Educação e Escritório 4D."
+   "frase": "Vidas indiretas correspondem a pessoas beneficiadas pelos efeitos dos projetos em seus territórios, serviços e políticas públicas, mesmo sem participar diretamente das atividades. Esse alcance inclui o apoio à educação, à construção de planos de contingência e a iniciativas comunitárias."
   },
   "P05": {
-   "frase": "Só 11% foram alcançadas diretamente; as outras 89% são vidas indiretas, estimadas pelos projetos."
+   "frase": "13,2% foram alcançadas diretamente; 86,8% são vidas indiretas, estimadas pelos projetos."
   },
   "P06": {
    "frase": "Mede-se em casas: cada unidade entregue, pronta ou em obra conta 4 pessoas."
