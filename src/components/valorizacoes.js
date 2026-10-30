@@ -59,7 +59,7 @@ function Valorizacoes(d) {
   const CENTROS = new Proxy({}, {get: (_, id) => [CENTROS_FR[id][0] * W, CENTROS_FR[id][1] * H]});
   const E = Object.fromEntries(d.eixos.map((e) => [e.id, e]));
   const VM = {
-    apr: {label: "Fundo RegeneraRS", kicker: "Aprovado pelo Fundo RegeneraRS", legend: "valor aprovado", tot: d.totais.apr,
+    apr: {label: "RegeneraRS", kicker: "Aprovado pelo RegeneraRS", legend: "valor aprovado", tot: d.totais.apr,
           frase: () => ins.V01.frase},
     prev: {label: "Previsto", kicker: "Valor total previsto nos projetos", legend: "valor previsto", tot: d.totais.prev,
            frase: () => ins.V02.frase + " " + ins.V09.frase},
@@ -156,7 +156,7 @@ function Valorizacoes(d) {
       el("div", "font:700 14px/1.3 Manrope,sans-serif;margin-bottom:2px", p.nome),
       el("div", "display:flex;align-items:center;gap:6px;font-size:11.5px;opacity:.75;margin-bottom:8px",
         el("span", `width:8px;height:8px;border-radius:50%;background:${E[n.eixo].cor}`), `${E[n.eixo].nome} · ${p.fase}`),
-      linha("Fundo RegeneraRS", "apr"), linha("Previsto", "prev"), linha("Mobilizado", "mob"),
+      linha("RegeneraRS", "apr"), linha("Previsto", "prev"), linha("Mobilizado", "mob"),
       el("div", `margin-top:8px;font:600 14px Unbounded,sans-serif;color:${COR.tijolo}`,
         p.mob ? `mobilizou ${x1(p.mob / p.apr)}× o aporte` : "ainda sem mobilização"));
   }
@@ -339,7 +339,7 @@ function Valorizacoes(d) {
     enquadrar();
     legenda.replaceChildren(...[
       el("span", null, `círculo = um projeto · área = ${M.legend} (R$ milhões)`),
-      showSeed ? el("span", "display:flex;align-items:center;gap:6px", el("span", `width:10px;height:10px;border-radius:50%;background:${COR.lima}`), "semente = Fundo RegeneraRS") : null,
+      showSeed ? el("span", "display:flex;align-items:center;gap:6px", el("span", `width:10px;height:10px;border-radius:50%;background:${COR.lima}`), "semente = RegeneraRS") : null,
       st.vm === "mob" ? el("span", null, `${d.totais.n - d.totais.n_mob} projetos ainda sem mobilização não aparecem`) : null,
       el("span", `color:${COR.salvia}`, "projetos muito pequenos aparecem com tamanho mínimo · passe o mouse numa bolha para ver os valores")
     ].filter(Boolean));
@@ -369,7 +369,7 @@ function Valorizacoes(d) {
   window.addEventListener("resize", () => { clearTimeout(espera); espera = setTimeout(dimensionar, 150); });
 
   return el("section", "display:flex;flex-direction:column;gap:18px",
-    cabecalhoSecao("Transversal · 01", "Valorizações", gMed, gAgr),
+    cabecalhoSecao("", "RegeneraRS em números", gMed, gAgr),
     el("div", "display:flex;flex-wrap:wrap;gap:18px;align-items:stretch", esquerda, direita));
 }
 

@@ -5,7 +5,7 @@ function Cabecalho(d) {
   let montado = false;
   let encerrado = false;
   let quadro = null;
-  const links = [["valorizacoes", "Valorizações"], ["pessoas", "Pessoas"], ["eixos", "Eixos"], ["espaco", "Contexto espacial"], ["panorama-geral", "Panorama geral"]].map(([id, t]) => {
+  const links = [["valorizacoes", "RegeneraRS em números"], ["pessoas", "Vidas Alcançadas"], ["eixos", "Eixos"], ["espaco", "Território"], ["panorama-geral", "Panorama geral"]].map(([id, t]) => {
     const a = el("a", null, t);
     a.href = "#" + id; a.className = "nav-link"; a.dataset.alvo = id;
     return a;

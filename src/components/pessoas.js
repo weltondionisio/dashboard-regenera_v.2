@@ -13,13 +13,12 @@ function boneco(fill, stroke, dash, sw = 1.8) {
 
 function Pessoas(d) {
   const ins = d.insights, T = d.totais;
-  const st = {pm: "all", pEixo: null};
+  const st = {pm: "dir", pEixo: null};
   const PM = {
     dir: {label: "Diretas", kicker: "Vidas alcançadas diretamente", total: T.dir, frase: ins.P02.frase},
-    ind: {label: "Indiretas", kicker: "Vidas alcançadas indiretamente", total: T.ind, frase: ins.P03.frase},
-    all: {label: "Todas", kicker: "Todas as vidas alcançadas", total: T.vidas, frase: ins.P05.frase}
+    ind: {label: "Indiretas", kicker: "Vidas alcançadas indiretamente", total: T.ind, frase: ins.P03.frase}
   };
-  const tabs = ["dir", "ind", "all"].map((k) => {
+  const tabs = ["dir", "ind"].map((k) => {
     const b = el("button", null, PM[k].label);
     b.onclick = () => { st.pm = k; render(); };
     return [k, b];
@@ -79,7 +78,7 @@ function Pessoas(d) {
       s.w.style.opacity = st.pEixo && st.pEixo !== e.id ? 0.15 : 1;
     });
     for (const l of linhas) {
-      const e = l.e, v = st.pm === "dir" ? e.dir : st.pm === "ind" ? e.ind : e.dir + e.ind;
+      const e = l.e, v = st.pm === "dir" ? e.dir : e.ind;
       l.v.textContent = nf(v);
       let sub;
       if (st.pm === "dir") sub = `${(100 * e.dir / T.dir).toLocaleString("pt-BR", {maximumFractionDigits: 1})}% das diretas`;
@@ -91,7 +90,7 @@ function Pessoas(d) {
   }
   render();
   const sec = el("section", "display:flex;flex-direction:column;gap:18px",
-    cabecalhoSecao("Transversal · 02", "Pessoas", grp),
+    cabecalhoSecao("", "Vidas Alcançadas", grp),
     el("div", "display:flex;flex-wrap:wrap;gap:18px;align-items:stretch", esquerda, direita));
   return sec;
 }

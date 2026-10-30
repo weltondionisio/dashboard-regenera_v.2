@@ -181,7 +181,7 @@ function Espaco(d, mun, geo) {
   render();
 
   return el("section", "display:flex;flex-direction:column;gap:18px",
-    cabecalhoSecao("Transversal · 03", "Contexto espacial", grp),
+    cabecalhoSecao("", "Território", grp),
     el("div", "display:flex;flex-wrap:wrap;gap:18px;align-items:stretch", esquerda, direita));
 }
 

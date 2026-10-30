@@ -48,7 +48,7 @@ function Eixos(d) {
     const cab = el("div", `padding:12px 4px 10px;border-bottom:1px solid rgba(240,234,216,.14);font:600 13px Unbounded,sans-serif;letter-spacing:.06em;text-transform:uppercase;color:${COR.salvia}`,
       (() => { const x = el("span", null, "Projeto"); x.className = "lp-nome"; return x; })(),
       (() => { const x = el("span", null, "O que entregou"); x.className = "lp-entrega"; return x; })(),
-      (() => { const x = el("span", "text-align:right", "Mobilizado"); x.className = "lp-mob"; x.title = "Valor total mobilizado pelo projeto até jul/2026, incluindo o aporte do Fundo RegeneraRS"; return x; })());
+      (() => { const x = el("span", "text-align:right", "Mobilizado"); x.className = "lp-mob"; x.title = "Valor total mobilizado pelo projeto até jul/2026, incluindo o aporte do RegeneraRS"; return x; })());
     cab.className = "linha-proj";
     projs.replaceChildren(cab, ...ps.map((p) => {
       const nome = el("span", "font-weight:700;font-size:14px", p.nome);
