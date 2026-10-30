@@ -29,7 +29,7 @@
 .painel .nav-link[aria-current] { color: #D2E484; }
 .painel .nav-link[aria-current]::after { transform: scaleX(1); }
 
-/* Contexto espacial: tooltip do mapa */
+/* Território: tooltip do mapa */
 .ce-tip { position: absolute; pointer-events: none; opacity: 0; transition: opacity .12s; max-width: 300px; z-index: 5;
   background: #F0EAD8; border-radius: 16px; padding: 11px 14px; font: 500 12.5px/1.45 Manrope, sans-serif; color: #29443a; box-shadow: 0 12px 30px rgba(0, 30, 20, .45); }
 .ce-tip b { color: #00432C; font-weight: 800; font-size: 13.5px; }
@@ -166,3 +166,7 @@
 @media (prefers-reduced-motion: reduce) {
   .pg .pg-filter, .pg .pg-axis-row, .pg .pg-fill { transition: none; }
 }
+
+/* Crédito de desenvolvimento no final da página. */
+.atenea-credit { display: flex; align-items: center; justify-content: flex-end; gap: 8px; margin-top: 32px; padding: 12px 0 64px; color: rgba(240,234,216,.72); font: 400 11px/1.4 Manrope, system-ui, sans-serif; text-align: right; }
+.atenea-credit img { display: block; flex: 0 0 30px; width: 30px; height: 30px; object-fit: contain; border-radius: 4px; }

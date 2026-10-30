@@ -58,3 +58,11 @@ const janelaAssistente = assistenteRegenera(dados, municipios, rs);
 display(janelaAssistente);
 invalidation.then(() => janelaAssistente.destroy());
 ```
+
+```js
+const logoAtenea = await FileAttachment("assets/logo-atenea-latam.jpg").image({alt: "Atenea LATAM", width: 30, height: 30});
+const rodapeAtenea = document.createElement("footer");
+rodapeAtenea.className = "atenea-credit";
+rodapeAtenea.append("Desenvolvido por Atenea LATAM.", logoAtenea);
+display(rodapeAtenea);
+```
